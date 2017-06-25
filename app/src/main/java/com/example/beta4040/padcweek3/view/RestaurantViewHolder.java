@@ -2,6 +2,7 @@ package com.example.beta4040.padcweek3.view;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -27,6 +28,12 @@ public class RestaurantViewHolder extends RecyclerView.ViewHolder {
 
     @BindView(R.id.restaurant_tag)
     public TextView restaurantTag;
+
+    @BindView(R.id.delivery_time)
+    public TextView deliveryTime;
+
+    @BindView(R.id.restaurant_ad_tag)
+    public TextView restaurantAdTag;
 
     public RestaurantViewHolder(View itemView) {
         super(itemView);

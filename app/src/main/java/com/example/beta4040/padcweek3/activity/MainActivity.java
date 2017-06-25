@@ -12,6 +12,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 import com.example.beta4040.padcweek3.R;
 import com.example.beta4040.padcweek3.adapter.recyclerViewAdapter;
@@ -29,15 +31,20 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private static final String TAG = MainActivity.class.getSimpleName();
-    @BindView(R.id.recycler)
-    RecyclerView recyclerView;
 
-    recyclerViewAdapter adapter;
+    RecyclerView recyclerView;
+    recyclerViewAdapter adapter = null;
+    TextView restaurantCount;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        ButterKnife.bind(this);
+        View app_bar_main = findViewById(R.id.app_bar_main);
+        View content_main = app_bar_main.findViewById(R.id.content_main);
+        restaurantCount = content_main.findViewById(R.id.restaurant_count);
+        recyclerView = content_main.findViewById(R.id.recycler);
+//        recyclerView = (RecyclerView) findViewById(R.id.recycler);
         EventBus.getDefault().register(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -51,12 +58,6 @@ public class MainActivity extends AppCompatActivity
 //            }
 //        });
 
-        Log.d("recycler adapter", String.valueOf(adapter));
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(adapter);
-
-
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -64,6 +65,10 @@ public class MainActivity extends AppCompatActivity
         toggle.syncState();
 
         RetrofitDataAgent.getObjInstance().fetchRestaurantData();
+
+        Log.d("recycler adapter", String.valueOf(adapter));
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(null);
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -136,6 +141,10 @@ public class MainActivity extends AppCompatActivity
     public void inflateRecyclerViewData(RetrofitResponseEvent.RastaurantsResponseData event){
         adapter = new recyclerViewAdapter(event.getRestaurants());
         Log.d("EventBus Data", String.valueOf(event.getRestaurants()));
+        recyclerView.setAdapter(adapter);
+        restaurantCount.setText(String.valueOf(adapter.getItemCount()) + " Restaurants Delivers to you.");
         adapter.notifyDataSetChanged();
     }
 }
+
+

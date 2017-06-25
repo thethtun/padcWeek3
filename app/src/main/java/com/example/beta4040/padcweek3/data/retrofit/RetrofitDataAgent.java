@@ -11,7 +11,9 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
+import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -47,13 +49,19 @@ public class RetrofitDataAgent {
         response.enqueue(new Callback<ResponseVO>() {
             @Override
             public void onResponse(Call<ResponseVO> call, Response<ResponseVO> response) {
-                restaurants = response.body().getRestaurants();
-                EventBus.getDefault().post(new RetrofitResponseEvent.RastaurantsResponseData(restaurants));
+                ResponseVO responseVO = response.body();
+                if(responseVO != null) {
+                    restaurants = response.body().getRestaurants();
+                    Log.d("response Success", String.valueOf(response.body().getRestaurants()));
+                    Log.d("Error code", String.valueOf(response.code()));
+                    EventBus.getDefault().post(new RetrofitResponseEvent.RastaurantsResponseData(restaurants));
+                }
+
             }
 
             @Override
             public void onFailure(Call<ResponseVO> call, Throwable t) {
-
+                Log.e("Error", "network failed");
             }
         });
     }
