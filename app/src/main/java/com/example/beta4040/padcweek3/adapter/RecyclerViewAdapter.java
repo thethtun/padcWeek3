@@ -1,6 +1,5 @@
 package com.example.beta4040.padcweek3.adapter;
 
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -9,7 +8,7 @@ import android.view.ViewGroup;
 
 import com.example.beta4040.padcweek3.R;
 import com.example.beta4040.padcweek3.view.RestaurantViewHolder;
-import com.example.beta4040.padcweek3.data.model.RestaurantVO;
+import com.example.beta4040.padcweek3.data.Response.RestaurantResponse;
 
 import java.util.List;
 
@@ -19,13 +18,17 @@ import static android.media.CamcorderProfile.get;
  * Created by beta4040 on 6/23/17.
  */
 
-public class recyclerViewAdapter extends RecyclerView.Adapter<RestaurantViewHolder> {
+public class RecyclerViewAdapter extends RecyclerView.Adapter<RestaurantViewHolder> {
 
-    private static final String TAG = recyclerViewAdapter.class.getSimpleName();
-    private List<RestaurantVO> RestaurantObject;
+    private static final String TAG = RecyclerViewAdapter.class.getSimpleName();
+    private List<RestaurantResponse> RestaurantObject;
 
-    public recyclerViewAdapter(List<RestaurantVO> RestaurantObject) {
+    public RecyclerViewAdapter(List<RestaurantResponse> RestaurantObject) {
         this.RestaurantObject = RestaurantObject;
+    }
+
+    public static  RecyclerViewAdapter getInstace(List<RestaurantResponse> restaurantObject){
+        return new RecyclerViewAdapter(restaurantObject);
     }
 
     @Override

@@ -2,18 +2,14 @@ package com.example.beta4040.padcweek3.data.retrofit;
 
 import android.util.Log;
 
-import com.example.beta4040.padcweek3.data.model.ResponseVO;
-import com.example.beta4040.padcweek3.data.model.RestaurantVO;
+import com.example.beta4040.padcweek3.data.Response.MainResponse;
+import com.example.beta4040.padcweek3.data.Response.RestaurantResponse;
 import com.example.beta4040.padcweek3.event.RetrofitResponseEvent;
 
 import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
-import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -29,7 +25,7 @@ public class RetrofitDataAgent {
     private static final String TAG = RetrofitDataAgent.class.getSimpleName() ;
     private static RetrofitDataAgent objInstance;
     private ClientApi api;
-    private List<RestaurantVO> restaurants;
+    private List<RestaurantResponse> restaurants;
 
     public RetrofitDataAgent(){
         Retrofit retrofit = new Retrofit.Builder()
@@ -45,12 +41,12 @@ public class RetrofitDataAgent {
     }
 
     public void fetchRestaurantData(){
-        Call<ResponseVO> response = api.restaurantDataResponse();
-        response.enqueue(new Callback<ResponseVO>() {
+        Call<MainResponse> response = api.restaurantDataResponse();
+        response.enqueue(new Callback<MainResponse>() {
             @Override
-            public void onResponse(Call<ResponseVO> call, Response<ResponseVO> response) {
-                ResponseVO responseVO = response.body();
-                if(responseVO != null) {
+            public void onResponse(Call<MainResponse> call, Response<MainResponse> response) {
+                MainResponse mainResponse = response.body();
+                if(mainResponse != null) {
                     restaurants = response.body().getRestaurants();
                     Log.d("response Success", String.valueOf(response.body().getRestaurants()));
                     Log.d("Error code", String.valueOf(response.code()));
@@ -60,7 +56,7 @@ public class RetrofitDataAgent {
             }
 
             @Override
-            public void onFailure(Call<ResponseVO> call, Throwable t) {
+            public void onFailure(Call<MainResponse> call, Throwable t) {
                 Log.e("Error", "network failed");
             }
         });

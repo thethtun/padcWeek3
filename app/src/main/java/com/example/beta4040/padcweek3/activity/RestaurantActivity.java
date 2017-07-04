@@ -8,15 +8,15 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.beta4040.padcweek3.R;
-import com.example.beta4040.padcweek3.adapter.recyclerViewAdapter;
+import com.example.beta4040.padcweek3.adapter.RecyclerViewAdapter;
 import com.example.beta4040.padcweek3.data.retrofit.RetrofitDataAgent;
 import com.example.beta4040.padcweek3.event.RetrofitResponseEvent;
 
@@ -24,22 +24,20 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-
-public class MainActivity extends AppCompatActivity
+public class RestaurantActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private static final String TAG = MainActivity.class.getSimpleName();
+    private static final String TAG = RestaurantActivity.class.getSimpleName();
 
     RecyclerView recyclerView;
-    recyclerViewAdapter adapter = null;
+    RecyclerViewAdapter adapter = null;
     TextView restaurantCount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        onActivityTriggered();
         View app_bar_main = findViewById(R.id.app_bar_main);
         View content_main = app_bar_main.findViewById(R.id.content_main);
         restaurantCount = content_main.findViewById(R.id.restaurant_count);
@@ -139,11 +137,17 @@ public class MainActivity extends AppCompatActivity
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void inflateRecyclerViewData(RetrofitResponseEvent.RastaurantsResponseData event){
-        adapter = new recyclerViewAdapter(event.getRestaurants());
+//        adapter = new RecyclerViewAdapter(event.getRestaurants());
+        adapter = RecyclerViewAdapter.getInstace(event.getRestaurants());
         Log.d("EventBus Data", String.valueOf(event.getRestaurants()));
         recyclerView.setAdapter(adapter);
         restaurantCount.setText(String.valueOf(adapter.getItemCount()) + " Restaurants Delivers to you.");
         adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onActivityTriggered() {
+        Toast.makeText(this, RestaurantActivity.class.getSimpleName(), Toast.LENGTH_SHORT).show();
     }
 }
 

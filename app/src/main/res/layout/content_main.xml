@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    tools:context="com.example.beta4040.padcweek3.activity.MainActivity"
+    tools:context="com.example.beta4040.padcweek3.activity.RestaurantActivity"
     tools:showIn="@layout/app_bar_main">
 
     <LinearLayout

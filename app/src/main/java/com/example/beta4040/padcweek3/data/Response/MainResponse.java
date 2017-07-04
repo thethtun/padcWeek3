@@ -1,4 +1,4 @@
-package com.example.beta4040.padcweek3.data.model;
+package com.example.beta4040.padcweek3.data.Response;
 
 /**
  * Created by beta4040 on 6/23/17.
@@ -9,7 +9,7 @@ import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class ResponseVO implements Serializable
+public class MainResponse implements Serializable
 {
 
     @SerializedName("code")
@@ -23,10 +23,10 @@ public class ResponseVO implements Serializable
     private String timestamp;
     @SerializedName("restaurants")
     @Expose
-    private List<RestaurantVO> restaurants = null;
+    private List<RestaurantResponse> restaurants = null;
     private final static long serialVersionUID = 3050707320460245488L;
 
-    public ResponseVO(Integer code, String message, String timestamp, List<RestaurantVO> restaurants) {
+    public MainResponse(Integer code, String message, String timestamp, List<RestaurantResponse> restaurants) {
         super();
         this.code = code;
         this.message = message;
@@ -47,7 +47,7 @@ public class ResponseVO implements Serializable
     }
 
 
-    public List<RestaurantVO> getRestaurants() {
+    public List<RestaurantResponse> getRestaurants() {
         return restaurants;
     }
 

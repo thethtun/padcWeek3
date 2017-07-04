@@ -1,4 +1,4 @@
-package com.example.beta4040.padcweek3.data.model;
+package com.example.beta4040.padcweek3.data.Response;
 
 /**
  * Created by beta4040 on 6/23/17.
@@ -8,7 +8,7 @@ import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class RestaurantVO implements Serializable
+public class RestaurantResponse implements Serializable
 {
 
     @SerializedName("title")
@@ -44,7 +44,7 @@ public class RestaurantVO implements Serializable
      * No args constructor for use in serialization
      *
      */
-    public RestaurantVO() {
+    public RestaurantResponse() {
     }
 
     /**
@@ -59,7 +59,7 @@ public class RestaurantVO implements Serializable
      * @param leadTimeInMin
      * @param totalRatingCount
      */
-    public RestaurantVO(String title, String addrShort, String image, Integer totalRatingCount, Float averageRatingValue, Boolean isAd, Boolean isNew, List<String> tags, Integer leadTimeInMin) {
+    public RestaurantResponse(String title, String addrShort, String image, Integer totalRatingCount, Float averageRatingValue, Boolean isAd, Boolean isNew, List<String> tags, Integer leadTimeInMin) {
         super();
         this.title = title;
         this.addrShort = addrShort;
