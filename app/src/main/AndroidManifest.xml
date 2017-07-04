@@ -20,6 +20,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <provider
+            android:authorities="com.example.beta4040.padcweek3"
+            android:name=".data.Persistent.RestaurantContentProvider"
+            android:exported="true"
+            android:syncable="true"/>
     </application>
 
 </manifest>
