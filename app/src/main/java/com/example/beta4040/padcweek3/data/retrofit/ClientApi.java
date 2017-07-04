@@ -1,6 +1,6 @@
 package com.example.beta4040.padcweek3.data.retrofit;
 
-import com.example.beta4040.padcweek3.data.Response.MainResponse;
+import com.example.beta4040.padcweek3.data.Response.RestaurantResponse;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -11,5 +11,5 @@ import retrofit2.http.GET;
 
 public interface ClientApi {
     @GET("get-restaurants.php")
-    Call<MainResponse> restaurantDataResponse();
+    Call<RestaurantResponse> restaurantDataResponse();
 }

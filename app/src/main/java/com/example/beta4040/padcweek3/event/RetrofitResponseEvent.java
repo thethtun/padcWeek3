@@ -1,6 +1,6 @@
 package com.example.beta4040.padcweek3.event;
 
-import com.example.beta4040.padcweek3.data.Response.RestaurantResponse;
+import com.example.beta4040.padcweek3.data.vos.RestaurantVO;
 
 import java.util.List;
 
@@ -12,13 +12,13 @@ public class RetrofitResponseEvent {
 
     public static class RastaurantsResponseData
     {
-        List<RestaurantResponse> restaurants;
+        List<RestaurantVO> restaurants;
 
-        public RastaurantsResponseData(List<RestaurantResponse> restaurants) {
+        public RastaurantsResponseData(List<RestaurantVO> restaurants) {
             this.restaurants = restaurants;
         }
 
-        public List<RestaurantResponse> getRestaurants() {
+        public List<RestaurantVO> getRestaurants() {
             return restaurants;
         }
     }

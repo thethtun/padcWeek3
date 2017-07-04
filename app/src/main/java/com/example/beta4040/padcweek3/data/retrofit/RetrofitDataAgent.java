@@ -2,8 +2,8 @@ package com.example.beta4040.padcweek3.data.retrofit;
 
 import android.util.Log;
 
-import com.example.beta4040.padcweek3.data.Response.MainResponse;
 import com.example.beta4040.padcweek3.data.Response.RestaurantResponse;
+import com.example.beta4040.padcweek3.data.vos.RestaurantVO;
 import com.example.beta4040.padcweek3.event.RetrofitResponseEvent;
 
 import org.greenrobot.eventbus.EventBus;
@@ -25,7 +25,7 @@ public class RetrofitDataAgent {
     private static final String TAG = RetrofitDataAgent.class.getSimpleName() ;
     private static RetrofitDataAgent objInstance;
     private ClientApi api;
-    private List<RestaurantResponse> restaurants;
+    private List<RestaurantVO> restaurants;
 
     public RetrofitDataAgent(){
         Retrofit retrofit = new Retrofit.Builder()
@@ -41,22 +41,23 @@ public class RetrofitDataAgent {
     }
 
     public void fetchRestaurantData(){
-        Call<MainResponse> response = api.restaurantDataResponse();
-        response.enqueue(new Callback<MainResponse>() {
+        Call<RestaurantResponse> response = api.restaurantDataResponse();
+        response.enqueue(new Callback<RestaurantResponse>() {
             @Override
-            public void onResponse(Call<MainResponse> call, Response<MainResponse> response) {
-                MainResponse mainResponse = response.body();
-                if(mainResponse != null) {
+            public void onResponse(Call<RestaurantResponse> call, Response<RestaurantResponse> response) {
+                RestaurantResponse restaurantResponse = response.body();
+                if(restaurantResponse != null) {
                     restaurants = response.body().getRestaurants();
                     Log.d("response Success", String.valueOf(response.body().getRestaurants()));
-                    Log.d("Error code", String.valueOf(response.code()));
                     EventBus.getDefault().post(new RetrofitResponseEvent.RastaurantsResponseData(restaurants));
+                }else{
+                    Log.d("Error code", String.valueOf(response.code()));
                 }
 
             }
 
             @Override
-            public void onFailure(Call<MainResponse> call, Throwable t) {
+            public void onFailure(Call<RestaurantResponse> call, Throwable t) {
                 Log.e("Error", "network failed");
             }
         });

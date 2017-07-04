@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 
 import com.example.beta4040.padcweek3.R;
 import com.example.beta4040.padcweek3.view.RestaurantViewHolder;
-import com.example.beta4040.padcweek3.data.Response.RestaurantResponse;
+import com.example.beta4040.padcweek3.data.vos.RestaurantVO;
 
 import java.util.List;
 
@@ -21,16 +21,20 @@ import static android.media.CamcorderProfile.get;
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RestaurantViewHolder> {
 
     private static final String TAG = RecyclerViewAdapter.class.getSimpleName();
-    private List<RestaurantResponse> RestaurantObject;
+    private List<RestaurantVO> restaurantVOs;
 
-    public RecyclerViewAdapter(List<RestaurantResponse> RestaurantObject) {
-        this.RestaurantObject = RestaurantObject;
+    public RecyclerViewAdapter(List<RestaurantVO> restaurantVOs) {
+        this.restaurantVOs = restaurantVOs;
     }
 
-    public static  RecyclerViewAdapter getInstace(List<RestaurantResponse> restaurantObject){
+    public static  RecyclerViewAdapter getInstace(List<RestaurantVO> restaurantObject){
         return new RecyclerViewAdapter(restaurantObject);
     }
 
+    public void setNewData(List<RestaurantVO> restaurantVOs){
+        this.restaurantVOs = restaurantVOs;
+        notifyDataSetChanged();
+    }
     @Override
     public RestaurantViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
@@ -41,12 +45,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RestaurantViewHold
 
     @Override
     public void onBindViewHolder(RestaurantViewHolder holder, int position) {
-        holder.ratingBar.setRating(RestaurantObject.get(position).getAverageRatingValue());
-        holder.ratingTextView.setText("("+ RestaurantObject.get(position).getTotalRatingCount()+")");
-        holder.restaurantTitle.setText(RestaurantObject.get(position).getTitle());
-        holder.deliveryTime.setText(String.valueOf("Deliver in "+RestaurantObject.get(position).getLeadTimeInMin() + " mins"));
+        holder.ratingBar.setRating(restaurantVOs.get(position).getAverageRatingValue());
+        holder.ratingTextView.setText("("+ restaurantVOs.get(position).getTotalRatingCount()+")");
+        holder.restaurantTitle.setText(restaurantVOs.get(position).getTitle());
+        holder.deliveryTime.setText(String.valueOf("Deliver in "+restaurantVOs.get(position).getLeadTimeInMin() + " mins"));
 
-        List<String> RestaurantTagsList = RestaurantObject.get(position).getTags();
+        List<String> RestaurantTagsList = restaurantVOs.get(position).getTags();
         String TagForEachRestaurant = "";
         for (int i=0; i< RestaurantTagsList.size(); i++){
             TagForEachRestaurant = TagForEachRestaurant + RestaurantTagsList.get(i) + ", ";
@@ -54,7 +58,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RestaurantViewHold
         Log.v("RestauratTag", String.valueOf(TagForEachRestaurant));
         holder.restaurantTag.setText(TagForEachRestaurant);
 
-        if(RestaurantObject.get(position).getIsAd()){
+        if(restaurantVOs.get(position).getIsAd()){
             holder.restaurantAdTag.setVisibility(View.VISIBLE);
         }else{
             holder.restaurantAdTag.setVisibility(View.GONE);
@@ -64,6 +68,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RestaurantViewHold
 
     @Override
     public int getItemCount() {
-        return RestaurantObject.size();
+        return restaurantVOs.size();
     }
 }

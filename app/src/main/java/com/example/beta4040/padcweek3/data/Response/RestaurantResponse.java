@@ -3,147 +3,56 @@ package com.example.beta4040.padcweek3.data.Response;
 /**
  * Created by beta4040 on 6/23/17.
  */
+
 import java.io.Serializable;
 import java.util.List;
+
+import com.example.beta4040.padcweek3.data.vos.RestaurantVO;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class RestaurantResponse implements Serializable
 {
 
-    @SerializedName("title")
+    @SerializedName("code")
     @Expose
-    private String title;
-    @SerializedName("addr-short")
+    private Integer code;
+    @SerializedName("message")
     @Expose
-    private String addrShort;
-    @SerializedName("image")
+    private String message;
+    @SerializedName("timestamp")
     @Expose
-    private String image;
-    @SerializedName("total-rating-count")
+    private String timestamp;
+    @SerializedName("restaurants")
     @Expose
-    private Integer totalRatingCount;
-    @SerializedName("average-rating-value")
-    @Expose
-    private Float averageRatingValue;
-    @SerializedName("is-ad")
-    @Expose
-    private Boolean isAd;
-    @SerializedName("is-new")
-    @Expose
-    private Boolean isNew;
-    @SerializedName("tags")
-    @Expose
-    private List<String> tags = null;
-    @SerializedName("lead-time-in-min")
-    @Expose
-    private Integer leadTimeInMin;
-    private final static long serialVersionUID = -5271147397991539851L;
+    private List<RestaurantVO> restaurants = null;
+    private final static long serialVersionUID = 3050707320460245488L;
 
-    /**
-     * No args constructor for use in serialization
-     *
-     */
-    public RestaurantResponse() {
-    }
-
-    /**
-     *
-     * @param tags
-     * @param title
-     * @param addrShort
-     * @param isAd
-     * @param averageRatingValue
-     * @param isNew
-     * @param image
-     * @param leadTimeInMin
-     * @param totalRatingCount
-     */
-    public RestaurantResponse(String title, String addrShort, String image, Integer totalRatingCount, Float averageRatingValue, Boolean isAd, Boolean isNew, List<String> tags, Integer leadTimeInMin) {
+    public RestaurantResponse(Integer code, String message, String timestamp, List<RestaurantVO> restaurants) {
         super();
-        this.title = title;
-        this.addrShort = addrShort;
-        this.image = image;
-        this.totalRatingCount = totalRatingCount;
-        this.averageRatingValue = averageRatingValue;
-        this.isAd = isAd;
-        this.isNew = isNew;
-        this.tags = tags;
-        this.leadTimeInMin = leadTimeInMin;
+        this.code = code;
+        this.message = message;
+        this.timestamp = timestamp;
+        this.restaurants = restaurants;
     }
 
-    public String getTitle() {
-        return title;
+    public Integer getCode() {
+        return code;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public String getMessage() {
+        return message;
     }
 
-    public String getAddrShort() {
-        return addrShort;
+    public String getTimestamp() {
+        return timestamp;
     }
 
-    public void setAddrShort(String addrShort) {
-        this.addrShort = addrShort;
+
+    public List<RestaurantVO> getRestaurants() {
+        return restaurants;
     }
 
-    public String getImage() {
-        return image;
-    }
 
-    public void setImage(String image) {
-        this.image = image;
-    }
-
-    public Integer getTotalRatingCount() {
-        return totalRatingCount;
-    }
-
-    public void setTotalRatingCount(Integer totalRatingCount) {
-        this.totalRatingCount = totalRatingCount;
-    }
-
-    public Float getAverageRatingValue() {
-        return averageRatingValue;
-    }
-
-    public void setAverageRatingValue(Float averageRatingValue) {
-        this.averageRatingValue = averageRatingValue;
-    }
-
-    public Boolean getIsAd() {
-        return isAd;
-    }
-
-    public void setIsAd(Boolean isAd) {
-        this.isAd = isAd;
-    }
-
-    public Boolean getIsNew() {
-        return isNew;
-    }
-
-    public void setIsNew(Boolean isNew) {
-        this.isNew = isNew;
-    }
-
-    public List<String> getTags() {
-        return tags;
-    }
-
-    public void setTags(List<String> tags) {
-        this.tags = tags;
-    }
-
-    public Integer getLeadTimeInMin() {
-        return leadTimeInMin;
-    }
-
-    public void setLeadTimeInMin(Integer leadTimeInMin) {
-        this.leadTimeInMin = leadTimeInMin;
-    }
 
 }
-
-
